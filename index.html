@@ -5,82 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OrbitDB - Space Missions</title>
     <meta name="description" content="Explore a comprehensive database of historic and modern space missions.">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-
-    <header class="navbar">
-        <div class="logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" stroke="#00f2fe" stroke-width="2"/>
-                <path d="M12 2C12 2 15 7 15 12C15 17 12 22 12 22C12 22 9 17 9 12C9 7 12 2 12 2Z" fill="#00f2fe" fill-opacity="0.3" stroke="#00f2fe" stroke-width="2"/>
-                <path d="M2 12C2 12 7 9 12 9C17 9 22 12 22 12C22 12 17 15 12 15C7 15 2 12 2 12Z" fill="#00f2fe" fill-opacity="0.3" stroke="#00f2fe" stroke-width="2"/>
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+        <button id="backBtn" class="back-btn hidden">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
-            <h1>Orbit<span>DB</span></h1>
-        </div>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search missions, astronauts, or agencies...">
-            <button aria-label="Search" class="search-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </button>
-        </div>
-        <div class="filters">
-            <select id="agencyFilter">
-                <option value="all">All Agencies</option>
-                <option value="NASA">NASA</option>
-                <option value="Soviet">Soviet/Roscosmos</option>
-                <option value="SpaceX">SpaceX</option>
-                <option value="CNSA">CNSA</option>
-            </select>
+            BACK
+        </button>
+        <div class="logo">
+            <h1>ORBIT<span>DB</span></h1>
         </div>
     </header>
 
-    <main class="container">
-        <div class="hero">
-            <h2>Explore the Cosmos</h2>
-            <p>Your ultimate database for historical and modern spaceflight missions.</p>
-        </div>
-
-        <div class="stats-bar" id="statsBar">
-            <div class="stat-box">
-                <span class="stat-value" id="totalMissions">0</span>
-                <span class="stat-label">Total Missions</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value" id="totalAstronauts">0</span>
-                <span class="stat-label">Astronauts</span>
-            </div>
-        </div>
-
-        <section class="mission-grid" id="missionGrid">
-            <!-- Mission cards will be rendered here dynamically -->
-        </section>
+    <!-- Main Content Container -->
+    <main id="appContainer">
         
-        <div id="noResults" class="no-results hidden">
-            <h3>No missions found</h3>
-            <p>Try adjusting your search criteria</p>
+        <!-- HOME VIEW -->
+        <div id="homeView" class="view">
+            
+            <section class="home-section">
+                <h2 class="section-title">FEATURED</h2>
+                <div class="carousel-container">
+                    <div id="featuredCarousel" class="carousel">
+                        <!-- Featured missions rendered here -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="home-section">
+                <h2 class="section-title" id="onThisDayTitle">ON THIS DAY</h2>
+                <div id="onThisDayContainer" class="vertical-feed">
+                    <!-- Events and Missions rendered here -->
+                </div>
+            </section>
+
+            <section class="home-section">
+                <h2 class="section-title">TOP RATED</h2>
+                <div id="topRatedContainer" class="vertical-feed">
+                    <!-- Top 10 rated missions rendered here -->
+                </div>
+            </section>
         </div>
+
+        <!-- BROWSE VIEW -->
+        <div id="browseView" class="view hidden">
+            <div class="search-header">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search missions, astronauts, or agencies...">
+                </div>
+                <select id="agencyFilter">
+                    <option value="all">All Agencies</option>
+                    <option value="NASA">NASA</option>
+                    <option value="Soviet">Soviet/Roscosmos</option>
+                    <option value="SpaceX">SpaceX</option>
+                    <option value="ESA">ESA</option>
+                </select>
+            </div>
+            
+            <section class="mission-grid" id="missionGrid">
+                <!-- Search results rendered here -->
+            </section>
+            
+            <div id="noResults" class="no-results hidden">
+                <h3>NO MISSIONS FOUND.</h3>
+            </div>
+        </div>
+
+        <!-- MISSION DETAIL VIEW -->
+        <div id="detailView" class="view hidden">
+            <div id="detailContainer">
+                <!-- Details rendered here -->
+            </div>
+        </div>
+
     </main>
 
-    <footer>
-        <p>&copy; 2026 OrbitDB. All rights reserved.</p>
-    </footer>
-
-    <!-- Modal for Mission Details -->
-    <div id="missionModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" id="closeModal">&times;</button>
-            <div id="modalBody">
-                <!-- Modal content rendered here -->
-            </div>
-        </div>
-    </div>
+    <!-- Bottom Tab Navigation -->
+    <nav class="bottom-tabs">
+        <button class="tab-btn active" data-target="homeView">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3L20 9V21H15V14H9V21H4V9L12 3Z"/>
+            </svg>
+            HOME
+        </button>
+        <button class="tab-btn" data-target="browseView">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            BROWSE
+        </button>
+    </nav>
 
     <script src="data.js"></script>
     <script src="app.js"></script>
